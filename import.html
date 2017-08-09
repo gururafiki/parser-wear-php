@@ -1,0 +1,230 @@
+<html>
+    <head> 
+    <title>Import prices</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+        function repeat_import() {
+            var start =localStorage.getItem('start');
+            var counter = localStorage.getItem('file_now');
+            var count_excels=localStorage.getItem('count_excels');
+
+            var files = 
+            [
+                {
+                    source: "seven",
+                    article_col:"1",
+                    first_row :"10",
+                    product_group :"sale",
+                    name_col :"2",
+                    size_col :"4",
+                    size_ru_col :"5",
+                    colour_col :"0",
+                    price_col :"3",
+                    count_col :"10",
+                },
+                {
+                    source: "okruzn",
+                    article_col:"0",
+                    first_row :"2",
+                    product_group :"sale",
+                    name_col :"1",
+                    size_col :"3",
+                    size_ru_col :"4",
+                    colour_col :"0",
+                    price_col :"2",
+                    count_col :"5",
+                },
+                {
+                    source: "ostatki_1",
+                    article_col:"0",
+                    first_row :"3",
+                    product_group :"sale",
+                    name_col :"1",
+                    size_col :"0",
+                    size_ru_col :"1",
+                    colour_col :"0",
+                    price_col :"2",
+                    count_col :"3",
+                },
+                {
+                    source: "xls12",
+                    article_col:"1",
+                    first_row :"10",
+                    product_group :"sale",
+                    name_col :"2",
+                    size_col :"4",
+                    size_ru_col :"5",
+                    colour_col :"0",
+                    price_col :"3",
+                    count_col :"6",
+                },
+                {
+                    source: "xls121",
+                    article_col:"1",
+                    first_row :"10",
+                    product_group :"sale",
+                    name_col :"2",
+                    size_col :"4",
+                    size_ru_col :"5",
+                    colour_col :"0",
+                    price_col :"3",
+                    count_col :"6",
+                },
+                {
+                    source: "specer",
+                    article_col:"1",
+                    first_row :"10",
+                    product_group :"sale",
+                    name_col :"2",
+                    size_col :"4",
+                    size_ru_col :"5",
+                    colour_col :"0",
+                    price_col :"3",
+                    count_col :"10",
+                },
+                {
+                    source: "xls123",
+                    article_col:"1",
+                    first_row :"10",
+                    product_group :"sale",
+                    name_col :"2",
+                    size_col :"4",
+                    size_ru_col :"5",
+                    colour_col :"0",
+                    price_col :"3",
+                    count_col :"6",
+                },
+                {
+                    source: "xls122",
+                    article_col:"1",
+                    first_row :"10",
+                    product_group :"sale",
+                    name_col :"2",
+                    size_col :"4",
+                    size_ru_col :"5",
+                    colour_col :"0",
+                    price_col :"3",
+                    count_col :"6",
+                },
+                {
+                    source: "anotherxls1",
+                    article_col:"1",
+                    first_row :"9",
+                    product_group :"sale",
+                    name_col :"2",
+                    size_col :"0",
+                    size_ru_col :"2",
+                    colour_col :"3",
+                    price_col :"5",
+                    count_col :"0",
+                },
+                {
+                    source: "ostatki11",
+                    article_col:"1",
+                    first_row :"9",
+                    product_group :"sale",
+                    name_col :"2",
+                    size_col :"0",
+                    size_ru_col :"2",
+                    colour_col :"3",
+                    price_col :"4",
+                    count_col :"9",
+                },
+                {
+                    source: "ostatki_25_concept",
+                    article_col:"1",
+                    first_row :"9",
+                    product_group :"new",
+                    name_col :"2",
+                    size_col :"0",
+                    size_ru_col :"2",
+                    colour_col :"3",
+                    price_col :"7",
+                    count_col :"8",
+                },
+                {
+                    source: "ostatki_1_concept",
+                    article_col:"1",
+                    first_row :"9",
+                    product_group :"new",
+                    name_col :"2",
+                    size_col :"0",
+                    size_ru_col :"2",
+                    colour_col :"3",
+                    price_col :"7",
+                    count_col :"8",
+                }
+
+            ];
+            // var next =  parseInt(start)+1; 
+            // localStorage.setItem('start',next);
+            $.ajax({
+                    url: "UpdateDB_working.php",
+                    type: 'post',
+                    timeout: 180000,
+                    data: {
+                    'start': start,
+                    'source': files[counter].source,
+                    'article_col':files[counter].article_col,
+                    'first_row':files[counter].first_row,
+                    'product_group' :files[counter].product_group,
+                    'name_col' :files[counter].name_col,
+                    'size_col' :files[counter].size_col,
+                    'size_ru_col' :files[counter].size_ru_col,
+                    'colour_col' :files[counter].colour_col,
+                    'price_col' :files[counter].price_col,
+                    'count_col' :files[counter].count_col,
+                    },
+                    success: function(data){
+                                $("#progress-bar").append("I");
+                                $("#content").html("<p>Now done " + data + " rows</p>");
+                                $("#content").append("<table><tbody><tr><th>Property</th><th>value</th></tr>" + "<tr><td>" + "Source" + "</td><td>" + files[counter].source + "</td></tr>" + "<tr><td>" + "article_col" + "</td><td>" + files[counter].article_col + "</td></tr>" + "<tr><td>" + "first_row" + "</td><td>" + files[counter].first_row + "</td></tr>" + "<tr><td>" + "product_group" + "</td><td>" + files[counter].product_group + "</td></tr>" + "<tr><td>" + "name_col" + "</td><td>" + files[counter].name_col + "</td></tr>" + "<tr><td>" + "size_col" + "</td><td>" + files[counter].size_col + "</td></tr>" + "<tr><td>" + "size_ru_col" + "</td><td>" + files[counter].size_ru_col + "</td></tr>" + "<tr><td>" + "colour_col" + "</td><td>" + files[counter].colour_col + "</td></tr>" + "<tr><td>" + "price_col" + "</td><td>" + files[counter].price_col + "</td></tr>" + "<tr><td>" + "count_col" + "</td><td>" + files[counter].count_col + "</td></tr>" + "</tbody><table>");
+                                if (data == "end") {
+                                    var next_file =  parseInt(counter)+1;
+                                    localStorage.setItem('file_now',next_file);
+                                    counter = localStorage.getItem('file_now');
+                                    localStorage.setItem('start',0);
+                                    if(next_file<parseInt(count_excels)){
+                                        repeat_import();
+                                    }
+                                    else{
+                                        $("#content").html("<h2>success!</h2>");
+                                    }
+                                } else if(data.length>10) {
+                                    console.log(data);
+                                    repeat_import();
+                                } else {
+                                    localStorage.setItem('start',data);
+                                    repeat_import();
+                                }       
+                            },
+                    complete: function(xhr, textStatus){
+                                if (textStatus != "success") {
+                                    $("#progress-bar").append("I");
+                                    repeat_import();        
+                                }
+                            }
+            });
+        }
+
+        $(function (){
+            localStorage.setItem('file_now',11);
+            localStorage.setItem('count_excels',12);
+            localStorage.setItem('start',0);//4522
+            repeat_import();
+        });
+    </script>
+    </head>
+
+    <body> 
+
+    <h1>Importing price list</h1>
+    Wait until import is processing
+    <div id="progress-bar">
+    </div>
+    <div id="content">
+    </div> 
+
+    </body> 
+
+</html>
